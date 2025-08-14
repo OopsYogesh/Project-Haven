@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Product PDF Download</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            width: 250px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 8px 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Product List</h2>
+    <div id="productList">
+        <!-- Static Example Products -->
+        <div class="product">
+            <h3>iPhone 15 Pro Max</h3>
+            <p>Price: ₹1,59,900</p>
+            <p>Description: Titanium body, A17 Pro chip, Pro camera system.</p>
+            <button onclick="downloadProductPDF('iPhone 15 Pro Max', '₹1,59,900', 'Titanium body, A17 Pro chip, Pro camera system.')">Download PDF</button>
+        </div>
+
+        <div class="product">
+            <h3>Samsung Galaxy S24 Ultra</h3>
+            <p>Price: ₹1,29,999</p>
+            <p>Description: Snapdragon 8 Gen 3, 200MP Camera, S Pen.</p>
+            <button onclick="downloadProductPDF('Samsung Galaxy S24 Ultra', '₹1,29,999', 'Snapdragon 8 Gen 3, 200MP Camera, S Pen.')">Download PDF</button>
+        </div>
+    </div>
+
+    <script>
+        async function downloadProductPDF(name, price, description) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(20);
+            doc.text("Product Details", 20, 20);
+
+            doc.setFontSize(14);
+            doc.text(`Name: ${name}`, 20, 40);
+            doc.text(`Price: ${price}`, 20, 50);
+            doc.text(`Description: ${description}`, 20, 60, { maxWidth: 170 });
+
+            doc.save(`${name.replace(/\s+/g, '_')}.pdf`);
+        }
+    </script>
+
+</body>
+</html>
